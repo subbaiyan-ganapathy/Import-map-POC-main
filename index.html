@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script type="importmap">
+      {
+        "imports": {
+          "ManModule": "./function.js",
+          "moment": "https://cdn.skypack.dev/moment",
+          "luxon": "./node_modules/luxon/src/luxon.js"
+        }
+      }
+    </script>
+
+    <style>
+        .container {
+            display: flex;
+            justify-content: space-evenly;
+        }
+
+        .moment {
+            border: 7px solid black;
+            height: 200px;
+            width: 400px;
+            padding: 20px;
+        }
+
+        .luxon {
+            border: 7px solid rgb(164, 133, 7);
+            height: 200px;
+            width: 400px;
+            padding: 20px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1 style="text-align: center;" id="msg">msg</h1>
+    <div class="container">
+        <div class="moment">
+            <h1>Moment Js in action</h1>
+            <p id="momOutput">Output</p>
+            <button id="momBtn">Click</button>
+        </div>
+        <div class="luxon">
+            <h1>Luxon Js in action</h1>
+            <p id="luxOutput">Output</p>
+            <button id="luxBtn">Click</button>
+        </div>
+    </div>
+
+    <script type="module">
+        import manMsg from "ManModule";
+        import moment from "moment";
+        import { DateTime } from "luxon";
+
+        //  My Own function
+        manMsg();
+
+        // Moment Js
+        document.getElementById("momBtn").addEventListener("click", function () {
+            document.getElementById("momOutput").innerHTML = moment().format(
+                "MMMM Do YYYY, h:mm:ss a"
+            );
+            console.log(moment().format("MMMM Do YYYY, h:mm:ss a"));
+        });
+
+        // Luxon Js
+        document.getElementById("luxBtn").addEventListener("click", function () {
+            document.getElementById("luxOutput").innerHTML = formattingWithLuxon();
+            console.log("Hi Luxon");
+        });
+
+        function formattingWithLuxon() {
+            const date = new Date(); // Get current date
+            const locale = 'fr'; // French locale
+            return DateTime.fromJSDate(date, { zone: 'utc' })
+                .setLocale(locale)
+                .toLocaleString(DateTime.DATE_FULL);
+        }
+
+    </script>
+</body>
+
+</html>
